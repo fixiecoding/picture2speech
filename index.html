@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 	<meta name=apple-mobile-web-app-capable content=yes>
 	<meta name=apple-mobile-web-app-status-bar-style content=black>
-	<title>Picture2Speech</title>   
+	<title>Picture2Speech</title>
 	<link type="image/x-icon" href="favicon.ico" rel="shortcut icon">
 	<link type="image/x-icon" href="favicon.ico" rel="icon">
 	<link rel="apple-touch-icon" href="icons/favicon-57x57.png" />
@@ -17,19 +17,19 @@
 	html, body {
 		height:100%;
 	}
-	
+
 	body{
 		margin:0;
 		padding:0;
 	}
-	
+
 	#wrapper{
 		position: relative;
 	  	width: 100%;
 	  	height: 100%;
 	  	margin: 0 auto;
 	}
-	
+
 	/* media query */
 	/* Portrait */
 	@media screen and (orientation:portrait) {
@@ -66,14 +66,16 @@ lastWidth = 0;
 
 /* Need to put all settings here e.g. behaviour, API Details etc */
 var settings = {
-	rekognition_api_key_scene : '',
+	rekognition_api_key_face : 'IVNpymvx5mrP9rv8',
+	rekognition_api_secret_face : '25njH3Q0C5zN55Lp',
+    rekognition_api_key_scene : '',
 	rekognition_api_secret_scene : ''
 };
 
 window.addEventListener("load", function(e) {
 	setTimeout(hideUrl, 100);
 }, false);
-//window.addEventListener("orientationchange", hideUrl ); //android old version doesn't support it 
+//window.addEventListener("orientationchange", hideUrl ); //android old version doesn't support it
 window.onresize = function() {
 	hideUrl();
 };
@@ -85,12 +87,12 @@ function hideUrl(){
 	lastWidth = pageWidth;
 	if(android){
 		page.style.height = (window.innerHeight + 56) + 'px';
-	}	    
+	}
 	window.scrollTo(0, 1);
 }
-
+/*
 $(function(){
-	//Docuemnt ready function 
+	//Document ready function
 	$('#submit').on('click',function(){
 		var imgloc = $('#imgUrl').val();
 		var url= "http://rekognition.com/func/api/?"
@@ -100,10 +102,25 @@ $(function(){
 		$('#response').html(url);
 		/* $.getJSON(url,function(data){
 			console.log(data);
-		}); */
+		});
 	});
-	
-});
-</script>
+
+}); */
+
+$(function(){
+	//Document ready function
+	$('#submit').on('click',function(){
+		var imgloc = $('#imgUrl').val();
+		var url= "http://rekognition.com/func/api/?"
+				+"api_key="+settings.rekognition_api_key_face
+				+"&api_secret="+settings.rekognition_api_secret_face
+				+"&jobs=face_part&urls="+imgloc;
+		$('#response').html(url);
+		$.getJSON(url,function(data){
+			console.log(data);
+		});
+	});
+
+});</script>
 </body>
 </html>
